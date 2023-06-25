@@ -2,9 +2,9 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const TrainSchema = new mongoose.Schema({
-    companyName: { type: String, required: true },
-    clientID: { type: String, required: true },
-    clientSecret: { type: String, required: true },
+    trainName: { type: String },
+    trainNumber: { type: String },
+    departureTime: {"Hours":{type:String},"Minutes":{type:String},"Seconds":{type:String} },
     ownerName: { type: String, required: true },
     rollNo: { type: String, required: true },
     ownerEmail: { type: String, required: true, unique: true },

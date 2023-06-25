@@ -42,9 +42,11 @@ router.post('/register', [
       const data = {
         user: {
           id: user.id,
-          
+        //   clientID:res.body.clientID,
+        //   clientSecret:res.body.clientSecret
         }
       }
+      
       const authToken = jwt.sign(data, JWT_SECRET);
       success = true;
       res.json({ success, authToken });
@@ -94,5 +96,18 @@ router.post('/auth', [
   }
 });
 
+router.post('/getuser', fetchuser, async (req, res) => {
+    try {
+  
+      const userId = req.user.id;
+      const user = await User.findById(userId).select("-accessCode");
+  
+      res.send(user);
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send("Some internal server error has occured");
+    }
+  
+  });
 
 module.exports = router;
