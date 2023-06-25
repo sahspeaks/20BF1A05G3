@@ -3,8 +3,8 @@ const { Schema } = mongoose;
 
 const UserSchema = new mongoose.Schema({
     companyName: { type: String, required: true },
-    clientID: { type: String, required: true },
-    clientSecret: { type: String, required: true },
+    clientID: { type: String},
+    clientSecret: { type: String},
     ownerName: { type: String, required: true },
     rollNo: { type: String, required: true },
     ownerEmail: { type: String, required: true, unique: true },

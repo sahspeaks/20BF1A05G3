@@ -46,7 +46,8 @@ router.post('/register', [
         //   clientSecret:res.body.clientSecret
         }
       }
-      
+      user.findByIdAndUpdate(ownerEmail,{ clientID:res.body.clientID })
+      user.findByIdAndUpdate(ownerEmail,{ clientSecret:res.body.clientSecret })
       const authToken = jwt.sign(data, JWT_SECRET);
       success = true;
       res.json({ success, authToken });
