@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const UserSchema = new mongoose.Schema({
+const TrainSchema = new mongoose.Schema({
     companyName: { type: String, required: true },
     clientID: { type: String, required: true },
     clientSecret: { type: String, required: true },
@@ -12,5 +12,5 @@ const UserSchema = new mongoose.Schema({
     date: { type: Date, default: Date.now }
 
 });
-const User=mongoose.model('user', UserSchema);
-module.exports = User;
+const Train=mongoose.model('trains', UserSchema);
+module.exports = Train;

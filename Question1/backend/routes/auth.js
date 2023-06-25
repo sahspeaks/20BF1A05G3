@@ -9,7 +9,7 @@ const fetchuser = require('../middleware/fetchuser')
 const JWT_SECRET = "Top secret";
 
 
-// ROUTE 1: Create a user via post router api/auth/createuser
+// ROUTE 1: Create a user via post router /train/register
 router.post('/register', [
     body('ownerEmail', 'Enter a valid email').isEmail(),
     body('accessCode', 'Enter Strong Password').isLength({ min: 5 }),
@@ -41,7 +41,8 @@ router.post('/register', [
       });
       const data = {
         user: {
-          id: user.id
+          id: user.id,
+          
         }
       }
       const authToken = jwt.sign(data, JWT_SECRET);
@@ -54,6 +55,44 @@ router.post('/register', [
     }
   });
 
+
+//   /ROUTE 2: Authenticate a user via post router /train/auth
+
+router.post('/auth', [
+  body('ownerEmail', 'Enter a valid email').isEmail(),
+  body('accessCode', 'password can not be blank').exists()
+], async (req, res) => {
+  let success = false;
+  //if there are errors,return bad request and the error
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ success, errors: errors.array() });
+  }
+  //collect email password from login page and compare with databse email & password
+  const { ownerEmail, accessCode } = req.body;
+  try {
+    let user = await User.findOne({ ownerEmail });
+    if (!user) {
+      return res.status(400).json({ success, error: "Please login with valid credentials" });
+    }
+    const comparedPassword = await bcrypt.compare(accessCode, user.accessCode);
+    if (!comparedPassword) {
+      return res.status(400).json({ success, error: "Please login with valid credentials" });
+    }
+    //when both email and password is matched  
+    const data = {
+      user: {
+        id: user.id
+      }
+    }
+    const authToken = jwt.sign(data, JWT_SECRET);
+    success = true;
+    res.json({ success, authToken });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).send("Some internal server error has occured");
+  }
+});
 
 
 module.exports = router;
