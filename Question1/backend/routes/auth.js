@@ -10,7 +10,7 @@ const JWT_SECRET = "Top secret";
 
 
 // ROUTE 1: Create a user via post router api/auth/createuser
-router.post('/createuser', [
+router.post('/register', [
     body('ownerEmail', 'Enter a valid email').isEmail(),
     body('accessCode', 'Enter Strong Password').isLength({ min: 5 }),
   

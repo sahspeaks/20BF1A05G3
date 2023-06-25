@@ -14,7 +14,7 @@ app.get("/",(req,res)=>{
     res.send("Hello World");
 });
 
-app.use('/api/auth',require('./routes/auth'));
+app.use('/train',require('./routes/auth'));
 
 
 let port=process.env.PORT;
