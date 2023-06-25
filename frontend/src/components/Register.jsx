@@ -4,7 +4,7 @@ import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
 const Register = (props) => {
-  const [credentials, setCredentials] = useState({ ownerName: "",companyName:"",rollNo:"", ownerEmail: "", accessCode: "" });
+  const [credentials, setCredentials] = useState(ownerName, companyName,rollNo,ownerEmail, accessCode );
   let navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -60,26 +60,38 @@ const Register = (props) => {
                   />
                 </div>
                 <div className="form-outline mb-4 my-2">
-                  <label className="form-label" htmlFor="name">
+                  <label className="form-label" htmlFor="ownerName">
                     Owner Name
                   </label>
                   <input
                     type="text"
-                    id="name"
-                    name="name"
+                    id="ownerName"
+                    name="ownerName"
+                    className="form-control form-control-lg"
+                    onChange={onChange}
+                  />
+                </div>
+                <div className="form-outline mb-4 my-2">
+                  <label className="form-label" htmlFor="rollNo">
+                    Roll Number
+                  </label>
+                  <input
+                    type="text"
+                    id="rollNo"
+                    name="rollNo"
                     className="form-control form-control-lg"
                     onChange={onChange}
                   />
                 </div>
 
                 <div className="form-outline mb-4 my-2">
-                  <label className="form-label" htmlFor="email">
+                  <label className="form-label" htmlFor="ownerEmail">
                     Email address
                   </label>
                   <input
                     type="email"
-                    id="email"
-                    name="email"
+                    id="ownerEmail"
+                    name="ownerEmail"
                     className="form-control form-control-lg"
                     aria-describedby="emailHelp"
                     onChange={onChange}
@@ -91,13 +103,13 @@ const Register = (props) => {
 
                 {/* <!-- Password input --> */}
                 <div className="form-outline mb-4">
-                  <label className="form-label" htmlFor="password">
+                  <label className="form-label" htmlFor="accessCode">
                     Password
                   </label>
                   <input
                     type="password"
-                    id="password"
-                    name="password"
+                    id="accessCode"
+                    name="accessCode"
                     className="form-control form-control-lg"
                     onChange={onChange}
                     minLength={5} required
